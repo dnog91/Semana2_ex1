@@ -44,13 +44,13 @@ interface iClient {
     printData() : string;
 }
 
-class client2 implements iClient {
+class Client implements iClient {
     private _userId: number;
     private _isAdmin: boolean;
     public name: string;
     public surname: string;
     public date: Date;
-    constructor(userId : number, name: string, isAdmin?: boolean, surname?:string, date?:Date ){
+    constructor(userId : number, name: string, surname?:string, isAdmin?: boolean, date?:Date ){
         this._userId = userId;
         this.name=name;
         this.surname=surname? surname: '';
@@ -61,6 +61,9 @@ class client2 implements iClient {
     printData(): string{
         return `Holla, soy ${this.name} ${this.surname} (id:${this.userId})`;
     }
+
+
+
     get userId(): number {
         return this._userId;
     }
@@ -75,14 +78,27 @@ class client2 implements iClient {
     }
 }
 
+
+class IsAdmin extends Client{
+
+    private idAdmin: number;
+    constructor(userId : number, name: string, idAdmin: number, surname?:string, date?:Date){
+        super(userId, name, surname, true, date)
+        this.isAdmin=true;
+        this.idAdmin=idAdmin;
+    }
+    printData(): string{
+        return `Holla, soy ${this.name} ${this.surname} (id:${this.userId}). Tengo el idAdmin ${this.idAdmin}`
+    }
+}
+
 function setUserId(){
 
 }
 
-let diana = new client2(100, 'Diana', false, 'Nogueira');
+let diana = new Client(100, 'Diana','Nogueira');
+let filipa = new IsAdmin(104, 'Filipa', 1234, 'Nogueira');
 
 console.log(diana.printData());
-
-
-
+console.log(filipa.printData());
 
